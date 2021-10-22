@@ -2,6 +2,11 @@ import cv2
 import numpy as np
 
 video = cv2.VideoCapture('./video/fire.mp4')
+
+frame_width = int(video.get(3))
+frame_height = int(video.get(4))
+save_output = cv2.VideoWriter('output.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (frame_width,frame_height))
+
 while True:
     ret, frame = video.read()
     blur = cv2.GaussianBlur(frame,(15,15),0)
@@ -18,11 +23,15 @@ while True:
     if ret == False:
         break
     cv2.putText(output,"Fire Detected",(10,50),cv2.FONT_HERSHEY_SIMPLEX,1,(209, 80, 0, 255), 3)
+    save_output.write(output)
     cv2.imshow('frame', frame)
     cv2.imshow('fire', output)
     if cv2.waitKey(30) &0xFF == ord('q'):
         break
-cv2.destroyAllWindows()
+
 video.release()
+save_output.release()
+cv2.destroyAllWindows()
+
 
 
