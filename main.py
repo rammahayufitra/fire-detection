@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-video = cv2.VideoCapture('fire.mp4')
+video = cv2.VideoCapture('./video/fire.mp4')
 while True:
     ret, frame = video.read()
     blur = cv2.GaussianBlur(frame,(15,15),0)
